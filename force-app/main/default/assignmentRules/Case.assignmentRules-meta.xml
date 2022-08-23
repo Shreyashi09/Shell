@@ -53,6 +53,16 @@
             </criteriaItems>
             <template>unfiled$public/SupportCaseAssignmentNotification</template>
         </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Other_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Case.Reason</field>
+                <operation>equals</operation>
+                <value>Other</value>
+            </criteriaItems>
+            <template>unfiled$public/SupportCaseAssignmentNotification</template>
+        </ruleEntry>
     </assignmentRule>
     <assignmentRule>
         <fullName>Standard</fullName>
