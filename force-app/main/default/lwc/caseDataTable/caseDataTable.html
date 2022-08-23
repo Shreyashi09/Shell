@@ -1,0 +1,90 @@
+<template>
+    <lightning-card title="Service Management Desk" icon-name="standard:case" >
+        <br/>
+            <div class="slds-grid slds-p-around_xx-small slds-m-left_xx-small">
+                <div class="slds-size_1-of-5">
+                    <lightning-combobox
+                            label="Channel"
+                            value={selectedOrigin}
+                            options={originOptions}
+                            onchange={selectOrigin}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-size_1-of-5 slds-m-left_xx-small">
+                    <lightning-combobox
+                            label="Priority"
+                            value={selectedPriority}
+                            options={priorityOptions}
+                            onchange={selectPriority}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-size_1-of-5 slds-m-left_xx-small">
+                    <lightning-combobox
+                            label="Reason"
+                            value={selectedReason}
+                            options={reasonOptions}
+                            onchange={selectReason}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-size_1-of-5 slds-m-left_xx-small">
+                    <lightning-combobox
+                            label="Status"
+                            value={selectedStatus}
+                            options={statusOptions}
+                            onchange={selectStatus}>
+                    </lightning-combobox>
+                </div>
+                <div class="slds-size-1-of-5 slds-m-left_xx-small slds-m-top_large">
+                    <lightning-button variant="brand" label="Go" title="Search" icon-name="utility:filterList"
+                                       class="slds-m-left_x-small" onclick={searchCase}>
+                    </lightning-button>
+                </div>
+                <div class="slds-size-1-of-5 slds-m-left_xx-small slds-m-top_large">
+                    <button class="slds-button slds-button_destructive slds-m-left_x-small" onclick={clearFilter}>Reset</button>
+                </div>
+            </div>
+            <template if:true={hasCaseTableData}>
+                <div class="slds-grid">
+                    <div class="slds-size_4-of-12 slds-p-around_xx-small slds-m-left_xx-small">
+                        <lightning-input type="search" label="Search" onchange={handleSearch} placeholder="Please enter atleast 3 characters"></lightning-input>
+                    </div>
+                    <div class="slds-m-left_xx-small" style="margin-top:1.7rem !important;">
+                        <!-- lightning-button   icon-name="utility:download" label="Download as CSV" title="Download CSV File"
+                                            onclick={downloadCSVFile} variant="brand">
+                        </lightning-button -->
+                        <lightning-button   icon-name="utility:download" label="Download as PDF" title="Download PDF File"
+                                            onclick={generatePdf} variant="brand">
+                        </lightning-button>
+                    </div>
+                </div>
+                <div class="slds-grid slds-m-top_xx-small slds-m-left_xx-small">
+                    <div class="slds-size_12-of-12">
+                        <c-pagination records={caseList} total-records={caseList.length} onpaginatorchange={handlePaginatorChange}></c-pagination>
+                    </div>
+                </div>
+                <div class="slds-grid slds-m-left_xx-small">
+                    <div class="slds-size_12-of-12">
+                        <lightning-datatable data={recordsToDisplay} 
+                                            class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-border_left slds-border_right"
+                                            columns={columns}
+                                            key-field="id"
+                                            sorted-by={sortBy}
+                                            sorted-direction={sortDirection}
+                                            onsort={performColumnSorting}
+                                            hide-checkbox-column="true">
+                        </lightning-datatable>
+                    </div>
+                </div>
+            </template>
+            <template if:false={hasCaseTableData}>
+                <!-- lightning-tile>There is no case</lightning-tile -->
+                <div class="slds-spinner_container">
+                    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                      <span class="slds-assistive-text">Loading</span>
+                      <div class="slds-spinner__dot-a"></div>
+                      <div class="slds-spinner__dot-b"></div>
+                    </div>
+                  </div>
+            </template>
+    </lightning-card>
+</template>
