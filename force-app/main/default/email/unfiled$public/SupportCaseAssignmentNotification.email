@@ -4,3 +4,5 @@ The following case has been auto-assigned to your team.  The case needs to be re
 2. Reason: {!Case.Reason}
 3. Description:{!Case.Description}
 4. Priority: {!Case.Priority}
+
+You can navigate the case from {!Case.Link}
